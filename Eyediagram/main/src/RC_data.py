@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from lmfit import Model
 from sklearn.metrics import r2_score
+from pathlib import Path                                                                                                #15줄 파일경로 에러 해결하려고 넣음(1/3)
 
 def RC(seg_length, voltage,node):
     V = []
@@ -9,7 +10,10 @@ def RC(seg_length, voltage,node):
     resistance = []
     admittance = []
 
-    lines = open(node+'_CV_result_ac_des.plt','r').readlines()
+    file_path = Path(r"/Users/kimjihyun/Documents/jihyun_github/JIHYUN/2022cap_jh/Cap/Eyediagram/main/data/sample")     #15줄 파일경로 에러 해결하려고 넣음(2/3)
+    lines = open(file_path+"/"+node+'_CV_result_ac_des.plt' ,'r').readlines()                                           #15줄 파일경로 에러 해결하려고 넣음(3/3)
+
+    # lines = open(node+'_CV_result_ac_des.plt' ,'r').readlines()                                                       #파일경로 에러
     for i in range(len(lines)):
         if lines[i] == '      1.00000000000000E+09\n':
             split = lines[i+1].split('   ')
