@@ -2,10 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sympy
 from fractions import Fraction
+import os
 
 def neff_voltage(wl,node):
     voltage = [0,-0.5,-1,-1.5,-2]
-    f = open(node+"_굴절률.txt",'r')
+    path = str(os.getcwd()).replace("src", "")
+    f = open(f'{path}' + '/data/sample/' + node + "_굴절률.txt", 'r')
+
     line = f.readline()
     neff = line.split(',')
     neff.pop()
