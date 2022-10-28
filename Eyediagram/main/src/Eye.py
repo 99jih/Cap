@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 import PySpice.Logging.Logging as Logging
 logger = Logging.setup_logging()
@@ -17,6 +18,7 @@ from src import neff as n
 
 
 def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,node): #wl[um]
+    path = str(os.getcwd()).replace("src", "")
     pico = 1e-12
     period = 1/datarate * 1e3 #ps
     pattern = period *4 * pico
@@ -39,7 +41,7 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
 
     # wl = 1.31 #um
     voltage = [0.5,0,-0.5,-1,-1.5,-2]
-    f = open(node+'_굴절률.txt','r')
+    f = open(f'{path}' + '/data/sample/' + node + "_굴절률.txt",'r')
     line = f.readline()
     neff = line.split(',')
     neff.pop()
@@ -58,7 +60,15 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
             phase = 2*np.pi*neff1*500/wl - 2*np.pi*f1(ori)*500/wl
             Intensity = pmax.pmax(seg_length,node)*np.cos(np.pi/4 + phase)**2 #phase 계산 방식 변경
             globals()[f'intensity_{k}'].append(Intensity)
-    
+    abc = 'sample'
+    def create_folder(directory):
+        os.makedirs(f'{directory}\\{abc}')
+
+    path = str(os.getcwd()).replace("src", "")
+    folderpath = (f'{path}\\res')
+    folderpath2 = (f'{path}\\res\\{abc}')
+    create_folder(folderpath)
+
     plt.figure(figsize=(9,8))        
     for k in range(num):
         plt.plot(globals()[f'time_{k}'],globals()[f'intensity_{k}'],'b', linestyle = 'solid', linewidth = 2)
@@ -67,4 +77,4 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     plt.xticks(fontsize = '30')
     plt.yticks(fontsize = '30')
     plt.ylim(0,1)
-    plt.savefig(node+'_'+str(Zs)+'.png',bbox_inches = 'tight')
+    plt.savefig(f"{folderpath2}\\{node}_{str(Zs)}.png",bbox_inches = 'tight')
