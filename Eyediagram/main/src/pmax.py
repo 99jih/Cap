@@ -1,7 +1,7 @@
 import os
-def pmax(seg_length,node):
+def pmax(seg_length,node,SampleName):
     path = str(os.getcwd()).replace("src", "")
-    f = open(f'{path}' + '/data/sample/' + node + '_phase-shifter loss.txt', 'r')
+    f = open(f'{path}/data/{SampleName}/' + node + '_phase-shifter loss.txt', 'r')
 
     line = f.readline()
     loss = line.split(',')

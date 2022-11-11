@@ -4,14 +4,13 @@ from lmfit import Model
 from sklearn.metrics import r2_score
 from pathlib import Path
 import os
-abc = 'sample'
-def RC(seg_length, voltage, node):
+def RC(seg_length, voltage, node,SampleName):
     V = []
     capacitance = []
     resistance = []
     admittance = []
     path = str(os.getcwd()).replace("src", "")
-    file_path = f'{path}/data/{abc}/'
+    file_path = f'{path}/data/{SampleName}/'
     lines = open(file_path + node + '_CV_result_ac_des.plt', 'r').readlines()
 
     for i in range(len(lines)):

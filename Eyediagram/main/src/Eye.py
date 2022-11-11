@@ -17,7 +17,7 @@ from src import neff as n
 
 
 
-def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,node): #wl[um]
+def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,node,SampleName): #wl[um]
     path = str(os.getcwd()).replace("src", "")
     pico = 1e-12
     period = 1/datarate * 1e3 #ps
@@ -25,7 +25,7 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     signal = PRBS.PRBS(datarate, 2, -2, 0) # 시그널 생성
     # signal = PRBS.PRBS_PAM4(datarate, -2, -1.1,-0.6, 0, 2)
     # signal = PRBS.PRBS_PAM4(datarate, -2, -1.15, -0.65, 0, 2)
-    analysis = circuit.MZM(signal, seg_length, Zs, Rm_init, Cm_init,node) # 회로 설계
+    analysis = circuit.MZM(signal, seg_length, Zs, Rm_init, Cm_init,node,SampleName) # 회로 설계
 
     # index = circuit.MZM(signal, seg_length, Zs, Rm_init, Cm_init)[1]
     # node = str(10*index+4)
@@ -41,7 +41,7 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
 
     # wl = 1.31 #um
     voltage = [0.5,0,-0.5,-1,-1.5,-2]
-    f = open(f'{path}' + '/data/sample/' + node + "_굴절률.txt",'r')
+    f = open(f'{path}/data/{SampleName}/' + node + "_굴절률.txt",'r')
     line = f.readline()
     neff = line.split(',')
     neff.pop()
@@ -51,22 +51,22 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     fp1 = np.polyfit(voltage,neff,2)
     f1 = np.poly1d(fp1)
     
-    ori = n.neff_voltage(wl,node)
+    ori = n.neff_voltage(wl,node,SampleName)
 
     for k in range(num):
         globals()[f'intensity_{k}'] = []
         for i in range(len(globals()[f'voltage_{k}'])):
             neff1 = f1(globals()[f'voltage_{k}'][i])
             phase = 2*np.pi*neff1*500/wl - 2*np.pi*f1(ori)*500/wl
-            Intensity = pmax.pmax(seg_length,node)*np.cos(np.pi/4 + phase)**2 #phase 계산 방식 변경
+            Intensity = pmax.pmax(seg_length,node,SampleName)*np.cos(np.pi/4 + phase)**2 #phase 계산 방식 변경
             globals()[f'intensity_{k}'].append(Intensity)
-    abc = 'sample'
+
     def create_folder(directory):
-        os.makedirs(f'{directory}\\{abc}')
+        os.makedirs(f'{directory}\\{SampleName}')
 
     path = str(os.getcwd()).replace("src", "")
     folderpath = (f'{path}\\res')
-    folderpath2 = (f'{path}\\res\\{abc}')
+    folderpath2 = (f'{path}\\res\\{SampleName}')
     create_folder(folderpath)
 
     plt.figure(figsize=(9,8))        
