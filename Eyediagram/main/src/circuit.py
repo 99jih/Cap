@@ -34,3 +34,5 @@ def MZM(signal,seg_length,Zs, L0_init, C0_init,node,SampleName): # RC 데이터 
     analysis = simulator.transient(step_time=step_time, end_time=5000@u_ps)
     print('성공')
     return analysis
+
+
