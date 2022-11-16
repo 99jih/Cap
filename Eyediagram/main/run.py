@@ -9,7 +9,8 @@ node_in = input('결과 원하는 노드 입력(전체:all)(여러개일 경우 
 
 # data/sample 에서 파일 받아와서 노드  리스트 만들기
 node_p = os.path.abspath(__file__)
-node_p = node_p.replace("run.py",("data/"+SampleName))
+node_p = node_p[:-7]
+node_p = os.path.join(node_p,"data",SampleName)
 node_list = [file for file in os.listdir(node_p) if file.endswith('_굴절률.txt')]
 for i in range(len(node_list)):
     node_list[i] = node_list[i].replace('_굴절률.txt','')

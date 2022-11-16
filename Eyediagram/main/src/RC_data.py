@@ -11,9 +11,10 @@ def RC(seg_length, voltage, node,SampleName):
     resistance = []
     admittance = []
     file_p = os.path.abspath(__file__)
-    file_p = file_p.replace("src/RC_data.py", ("data/"+ SampleName+'/'))
-    lines = open(file_p + node +'_CV_result_ac_des.plt' ,'r').readlines()   
-
+    file_p = file_p[:-15]
+    file_p = os.path.join(file_p,'data',SampleName, node +'_CV_result_ac_des.plt' )
+    f = open(file_p ,'r')
+    lines = open(file_p,'r').readlines()   
     for i in range(len(lines)):
         if lines[i] == '      1.00000000000000E+09\n':
             split = lines[i + 1].split('   ')

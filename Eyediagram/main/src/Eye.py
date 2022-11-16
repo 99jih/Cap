@@ -39,8 +39,9 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     # wl = 1.31 #um
     voltage = [0.5,0,-0.5,-1,-1.5,-2]
     file_p = os.path.abspath(__file__)
-    file_p = file_p.replace('src/Eye.py',('data/'+SampleName+'/'))
-    f = open(file_p + node +'_굴절률.txt','r')
+    file_p = file_p[:-11]
+    file_p = os.path.join(file_p,'data',SampleName, node +'_굴절률.txt' )
+    f = open(file_p ,'r')
     line = f.readline()
     neff = line.split(',')
     neff.pop()
@@ -64,9 +65,13 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
         os.makedirs(f'{directory}\\{SampleName}')
 
     fold_p = os.path.abspath(__file__)
-    fold_p = fold_p.replace("/src/Eye.py","/")
-    folder_path = fold_p + 'res/' + SampleName
-    os.makedirs(folder_path,exist_ok=True)
+
+    # file_p = file_p[:-11]
+    # file_p = os.path.join(file_p,'data',SampleName, node +'_굴절률.txt' )
+    # f = open(file_p ,'r')
+    fold_p = fold_p[:-11]
+    fold_p = os.path.join(fold_p,'res',SampleName)
+    os.makedirs(fold_p,exist_ok=True)
 
     plt.figure(figsize=(9,8))        
     for k in range(num):
@@ -77,5 +82,5 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     plt.yticks(fontsize = '30')
     plt.ylim(0,1)
     # plt.savefig(f"{fold_p}\\{node}_{str(Zs)}.png",bbox_inches = 'tight')
-    os.chdir(folder_path)
+    os.chdir(fold_p)
     plt.savefig(f"{node}_{str(Zs)}.png",bbox_inches = 'tight')
