@@ -14,11 +14,7 @@ from PySpice.Unit import *
 from src import PRBS, circuit, pmax
 from src import neff as n
 
-
-
-
 def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,node,SampleName): #wl[um]
-    path = str(os.getcwd()).replace("src", "")
     pico = 1e-12
     period = 1/datarate * 1e3 #ps
     pattern = period *4 * pico
@@ -26,6 +22,7 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     # signal = PRBS.PRBS_PAM4(datarate, -2, -1.1,-0.6, 0, 2)
     # signal = PRBS.PRBS_PAM4(datarate, -2, -1.15, -0.65, 0, 2)
     analysis = circuit.MZM(signal, seg_length, Zs, Rm_init, Cm_init,node,SampleName) # 회로 설계
+
 
     # index = circuit.MZM(signal, seg_length, Zs, Rm_init, Cm_init)[1]
     # node = str(10*index+4)
@@ -41,7 +38,10 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
 
     # wl = 1.31 #um
     voltage = [0.5,0,-0.5,-1,-1.5,-2]
-    f = open(f'{path}/data/{SampleName}/' + node + "_굴절률.txt",'r')
+    file_p = os.path.abspath(__file__)
+    file_p = file_p[:-11]
+    file_p = os.path.join(file_p,'data',SampleName, node +'_굴절률.txt' )
+    f = open(file_p ,'r')
     line = f.readline()
     neff = line.split(',')
     neff.pop()
@@ -64,10 +64,14 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     def create_folder(directory):
         os.makedirs(f'{directory}\\{SampleName}')
 
-    path = str(os.getcwd()).replace("src", "")
-    folderpath = (f'{path}\\res')
-    folderpath2 = (f'{path}\\res\\{SampleName}')
-    create_folder(folderpath)
+    fold_p = os.path.abspath(__file__)
+
+    # file_p = file_p[:-11]
+    # file_p = os.path.join(file_p,'data',SampleName, node +'_굴절률.txt' )
+    # f = open(file_p ,'r')
+    fold_p = fold_p[:-11]
+    fold_p = os.path.join(fold_p,'res',SampleName)
+    os.makedirs(fold_p,exist_ok=True)
 
     plt.figure(figsize=(9,8))        
     for k in range(num):
@@ -77,4 +81,6 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     plt.xticks(fontsize = '30')
     plt.yticks(fontsize = '30')
     plt.ylim(0,1)
-    plt.savefig(f"{folderpath2}\\{node}_{str(Zs)}.png",bbox_inches = 'tight')
+    # plt.savefig(f"{fold_p}\\{node}_{str(Zs)}.png",bbox_inches = 'tight')
+    os.chdir(fold_p)
+    plt.savefig(f"{node}_{str(Zs)}.png",bbox_inches = 'tight')

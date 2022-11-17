@@ -6,9 +6,10 @@ import os
 
 def neff_voltage(wl,node,SampleName):
     voltage = [0,-0.5,-1,-1.5,-2]
-    path = str(os.getcwd()).replace("src", "")
-    f = open(f'{path}/data/{SampleName}/' + node + "_굴절률.txt", 'r')
-
+    file_p = os.path.abspath(__file__)
+    file_p = file_p[:-12]
+    file_p = os.path.join(file_p,'data',SampleName, node +'_굴절률.txt' )
+    f = open(file_p ,'r')
     line = f.readline()
     neff = line.split(',')
     neff.pop()
