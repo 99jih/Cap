@@ -22,8 +22,7 @@ def Eye(datarate, delay, V_low, V_high, seg_length, Zs, Rm_init, Cm_init ,wl,nod
     # signal = PRBS.PRBS_PAM4(datarate, -2, -1.1,-0.6, 0, 2)
     # signal = PRBS.PRBS_PAM4(datarate, -2, -1.15, -0.65, 0, 2)
     analysis = circuit.MZM(signal, seg_length, Zs, Rm_init, Cm_init,node,SampleName) # 회로 설계
-
-
+    
     # index = circuit.MZM(signal, seg_length, Zs, Rm_init, Cm_init)[1]
     # node = str(10*index+4)
 
