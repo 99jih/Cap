@@ -29,16 +29,13 @@ def set_node_sam(node,SampleName):
         if node_in == 'all':
             for i in range(len(node_list)):
                 node = node_list[i]
-                # Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName) 
-                return node, sample_list
+                Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName) 
         elif node_in in node_list:
             node = node_in
-            # Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName)
-            return node, sample_list
+            Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName)
         else:
             nodes = node_in.split(' ')
             for i in range(len(nodes)):
                 print(node)     #지우기
                 node = nodes[i]
-                # Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName)
-                return node, sample_list
+                Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName)
