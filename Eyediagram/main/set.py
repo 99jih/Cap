@@ -2,14 +2,12 @@ from src import Eye
 import os,glob
 
 def set_node_sam(node,SampleName):
-    main_p = os.path.abspath(__file__) 
+    main_p = os.path.abspath(__file__)
     main_p = main_p[:-7]
 
     # sample list 만들기
-    sam_p = os.path.join(main_p,'data','*')
-    sample_list = glob.glob(sam_p)
-    for i in range(len(sample_list)):
-        sample_list[i] = sample_list[i].replace(sam_p[:-1],'')
+    sam_p = os.path.join(main_p,'data')
+    sample_list = os.listdir(sam_p)
 
     for j in range(len(sample_list)):
         SampleName = sample_list[j]
@@ -36,6 +34,5 @@ def set_node_sam(node,SampleName):
         else:
             nodes = node_in.split(' ')
             for i in range(len(nodes)):
-                print(node)     #지우기
                 node = nodes[i]
                 Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName)
