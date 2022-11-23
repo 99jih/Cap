@@ -8,10 +8,9 @@ csv_list = []
 sam_p = os.path.join(os.path.abspath(__file__)[:-17],'main','data','**','*.csv')
 csv_list = glob.glob(sam_p)
 sam_list = os.listdir(os.path.join(os.path.abspath(__file__)[:-17],'main','data'))
-print(sam_list)
+
 for i in range(len(csv_list)):
     filename = csv_list[i]
-    print(os.path.abspath(filename))
     df = pd.read_csv(filename)
 
     loss = df.loc[:,'loss at 0V (dB/cm)'].tolist()
@@ -41,6 +40,11 @@ for i in range(len(csv_list)):
     #     VpiL.pop(0)
     xvalue = [(6+ 2*i) for i in range(len(loss))]       
     xlabel = r'SiGe hDensity [10$^{17}$ cm$^{-3}]$'
+    
+    #fig 저장위치
+    fig_p = os.path.join(os.path.join(os.path.abspath(__file__)[:-17],'main','res',sam_list[i]))
+    os.makedirs(fig_p,exist_ok=True)
+    os.chdir(fig_p)
     
     #저항 결과
     # plt.figure(figsize = (6,6))
