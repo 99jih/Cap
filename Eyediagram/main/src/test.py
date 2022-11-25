@@ -5,9 +5,9 @@ import os, glob
 
 csv_list = []
 # filename = 'SiGe_density_Copy.csv'
-sam_p = os.path.join(os.path.abspath(__file__)[:-17],'main','data','**','*.csv')
+sam_p = os.path.join(os.path.abspath(__file__)[:-12],'data','**','*.csv')
 csv_list = glob.glob(sam_p)
-sam_list = os.listdir(os.path.join(os.path.abspath(__file__)[:-17],'main','data'))
+sam_list = os.listdir(os.path.join(os.path.abspath(__file__)[:-12],'data'))
 
 for i in range(len(csv_list)):
     filename = csv_list[i]
@@ -42,7 +42,7 @@ for i in range(len(csv_list)):
     xlabel = r'SiGe hDensity [10$^{17}$ cm$^{-3}]$'
     
     #fig 저장위치
-    fig_p = os.path.join(os.path.join(os.path.abspath(__file__)[:-17],'main','res',sam_list[i]))
+    fig_p = os.path.join(os.path.join(os.path.abspath(__file__)[:-12],'res',sam_list[i]))
     os.makedirs(fig_p,exist_ok=True)
     os.chdir(fig_p)
     
