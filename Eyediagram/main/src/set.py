@@ -26,9 +26,10 @@ def set_node_sam(node,SampleName):
             node_p = os.path.join(main_p,"data",SampleName)
             node_list = []
             node_list = [file[:-8] for file in os.listdir(node_p) if file.endswith('_굴절률.txt')] 
-            print(node_list)
+            node_list = sorted(node_list)
+
             for j in range(len(node_list)):
-                node = node_list[i]
+                node = node_list[j]
                 Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName) 
     
     else:
