@@ -40,4 +40,8 @@ def set_node_sam(node,SampleName):
             
             for j in range(len(nodes)):
                 node = nodes[j]
-                Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName) 
+                try:
+                    Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName) 
+                except:
+                    print(SampleName, '폴더 내에',node,'가 없습니다.')
+                    continue
