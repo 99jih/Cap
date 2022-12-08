@@ -1,4 +1,4 @@
-from src import Eye
+from src import Eye, test
 import os,glob
 
 def set_node_sam(node,SampleName):
@@ -20,10 +20,13 @@ def set_node_sam(node,SampleName):
     if node_in == 'all':
         for i in range(len(samples)):
             SampleName = samples[i]
+            test.test(SampleName)
+            
             node_p = os.path.join(main_p,"data",SampleName)
             node_list = []
             node_list = [file[:-8] for file in os.listdir(node_p) if file.endswith('_굴절률.txt')] 
             node_list = sorted(node_list)
+            
             for j in range(len(node_list)):
                 node = node_list[j]
                 Eye.Eye(50,2,-2,0,500,25,0.176e-9,26e-15,1.31,node,SampleName) 
@@ -32,7 +35,7 @@ def set_node_sam(node,SampleName):
         
         for i in range(len(samples)):
             SampleName = samples[i]
-            
+            test.test(SampleName)
             for j in range(len(nodes)):
                 node = nodes[j]
                 try:
