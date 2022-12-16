@@ -39,6 +39,7 @@ def test(SampleName):
         #         globals()[f'resistance_{v}'].pop(0)
         #     loss.pop(0)
         #     VpiL.pop(0)
+        
         xvalue = [(6+ 2*i) for i in range(len(loss))]       
         xlabel = r'SiGe hDensity [10$^{17}$ cm$^{-3}]$'
         
