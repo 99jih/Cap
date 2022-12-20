@@ -23,8 +23,7 @@ def set_node_sam(node,SampleName):
             test.test(SampleName)
             
             node_p = os.path.join(main_p,"data",SampleName)
-            node_list = []
-            node_list = [file[:-8] for file in os.listdir(node_p) if file.endswith('_굴절률.txt')] 
+            node_list = [file[:-21] for file in os.listdir(node_p) if file.endswith('.plt')] 
             node_list = sorted(node_list)
             
             for j in range(len(node_list)):
